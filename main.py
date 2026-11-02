@@ -70,10 +70,7 @@ def get_dataset(dataset_id: int, limit: int = Query(default=100, ge=1)):
     logger.info("Retrieved dataset: id=%d, returned_rows=%d", dataset_id, len(records))
     return {"id": dataset_id, "data": records, "total_rows": len(df)}
 
-@app.post(
-    "/dataset/{dataset_id}/process",
-    response_model=ProcessingReport
-)
+@app.post("/datasets/{dataset_id}/process", response_model=ProcessingReport)
 def process_dataset(dataset_id: int, config: ProcessConfig):
     """validates and processes a stored dataset using MP1 functions:"""
     df = storage.get(dataset_id)
